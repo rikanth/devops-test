@@ -1,0 +1,43 @@
+aws_region = "ap-south-1"
+
+# Replace these placeholders with real AWS resource IDs.
+subnet_id          = "subnet-REPLACE_ME"
+security_group_ids = ["sg-REPLACE_ME"]
+
+environment = "Production"
+owner       = "CloudOps"
+
+instances = {
+  "web-server" = {
+    instance_type = "t3.micro"
+    volume_type   = "gp3"
+    volume_size   = 20
+    key_name      = "web-prod-key"
+  }
+  "app-server" = {
+    instance_type = "t3.small"
+    volume_type   = "gp2"
+    volume_size   = 30
+    key_name      = "app-prod-key"
+  }
+  "critical-db" = {
+    instance_type = "t3.medium"
+    volume_type   = "io1"
+    volume_size   = 50
+    key_name      = "db-prod-key"
+    iops           = 1000
+  }
+  "build-server" = {
+    instance_type = "t3a.small"
+    volume_type   = "io2"
+    volume_size   = 40
+    key_name      = "build-prod-key"
+    iops           = 1000
+  }
+  "monitoring-server" = {
+    instance_type = "t3a.medium"
+    volume_type   = "standard"
+    volume_size   = 100
+    key_name      = "monitor-prod-key"
+  }
+}
