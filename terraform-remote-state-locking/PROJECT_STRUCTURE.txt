@@ -1,0 +1,13 @@
+terraform-remote-state-locking/
+├── bootstrap/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── terraform.tfvars.example
+├── app/
+│   ├── backend.tf
+│   ├── main.tf
+│   ├── variables.tf
+│   └── terraform.tfvars.example
+├── .gitignore
+├── README.md
+└── PROJECT_STRUCTURE.txt
