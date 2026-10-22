@@ -1,0 +1,16 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowDesignatedUsers",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::000000000000:user/engine",
+          "arn:aws:iam::000000000000:user/ci"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
