@@ -1,0 +1,66 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AuthenticateToECR",
+      "Effect": "Allow",
+      "Action": "ecr:GetAuthorizationToken",
+      "Resource": "*"
+    },
+    {
+      "Sid": "PushImagesToSpecificRepository",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
+      ],
+      "Resource": "arn:aws:ecr:ap-south-1:000000000000:repository/my-app"
+    },
+    {
+      "Sid": "RegisterTaskDefinition",
+      "Effect": "Allow",
+      "Action": "ecs:RegisterTaskDefinition",
+      "Resource": "*"
+    },
+    {
+      "Sid": "PassApprovedExecutionRole",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::000000000000:role/ecsTaskExecutionRole",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": "ecs-tasks.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "DeployToSpecificECSService",
+      "Effect": "Allow",
+      "Action": [
+        "ecs:UpdateService",
+        "ecs:DescribeServices",
+        "ecs:DescribeTaskDefinition",
+        "ecs:DescribeClusters"
+      ],
+      "Resource": [
+        "arn:aws:ecs:ap-south-1:000000000000:service/production-cluster/my-app-service",
+        "arn:aws:ecs:ap-south-1:000000000000:cluster/production-cluster"
+      ]
+    },
+    {
+      "Sid": "ListArtifactsBucket",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::my-build-artifacts"
+    },
+    {
+      "Sid": "ReadArtifactObjects",
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::my-build-artifacts/*"
+    }
+  ]
+}
